@@ -15,16 +15,20 @@ class InternetCubit extends Cubit<InternetState> {
   StreamSubscription connectivityStreamSubscription;
   InternetCubit({@required this.connectivity}) : super(InternetLoading()) {
     // subscribing in the stream of the plugin 
-    connectivityStreamSubscription =
-        connectivity.onConnectivityChanged.listen((connectivityResult) {
-      if (connectivityResult == ConnectivityResult.wifi) {
-        emitInternetConnected(ConnectionType.Wifi);
-      } else if (connectivityResult == ConnectivityResult.mobile) {
-        emitInternetConnected(ConnectionType.Mobile);
-      } else if (connectivityResult == ConnectivityResult.none) {
-        emitInternetDesconnected();
-      }
-    });
+    monitorInternetConnection();
+  }
+
+  StreamSubscription<ConnectivityResult> monitorInternetConnection() {
+    return connectivityStreamSubscription =
+      connectivity.onConnectivityChanged.listen((connectivityResult) {
+    if (connectivityResult == ConnectivityResult.wifi) {
+      emitInternetConnected(ConnectionType.Wifi);
+    } else if (connectivityResult == ConnectivityResult.mobile) {
+      emitInternetConnected(ConnectionType.Mobile);
+    } else if (connectivityResult == ConnectivityResult.none) {
+      emitInternetDesconnected();
+    }
+  });
   }
 
   void emitInternetConnected(ConnectionType _connectionType) =>

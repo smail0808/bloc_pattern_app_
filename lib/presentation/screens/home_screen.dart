@@ -1,6 +1,7 @@
+import 'package:bloc_pattern/constants/enums.dart';
 import 'package:bloc_pattern/logic/cubit/counter_cubit.dart';
-import 'package:bloc_pattern/presentation/screens/second_screen.dart';
-import 'package:bloc_pattern/presentation/screens/third_screen.dart';
+import 'package:bloc_pattern/logic/cubit/internet_cubit.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,6 +39,20 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            BlocBuilder<InternetCubit, InternetState>(
+              builder: (context, state) {
+                if (state is InternetConnected &&
+                    state.connectionType == ConnectionType.Wifi) {
+                  return Text('Wifi');
+                } else if (state is InternetConnected &&
+                    state.connectionType == ConnectionType.Mobile) {
+                  return Text('Modile');
+                } else if (state is InternetDesconnected) {
+                  return Text('Desconnected');
+                }
+                return CircularProgressIndicator();
+              },
+            ),
             Text('you have pushed the button this many times'),
             BlocConsumer<CounterCubit, CounterState>(
               listener: (context, state) {
@@ -66,36 +81,36 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          FloatingActionButton(
-            onPressed: () {
-              BlocProvider.of<CounterCubit>(context).increment();
-            },
-            tooltip: 'Increment',
-            child: Icon(Icons.add),
-          ),
-          FloatingActionButton(
-            onPressed: () {
-              BlocProvider.of<CounterCubit>(context).decrement();
-            },
-            tooltip: 'Decrement',
-            child: Icon(Icons.remove),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          MaterialButton(
-            color: Colors.green,
-            child: Text('Go to second Screen'),
-            onPressed: () {
-              Navigator.pushNamed(context, '/second');
-            },
-          ),
-          MaterialButton(
-              color: Colors.red,
-              child: Text('Go to third Screen'),
-              onPressed: () {
-                Navigator.of(context).pushNamed('/third');
-              }),
+          // FloatingActionButton(
+          //   onPressed: () {
+          //     BlocProvider.of<CounterCubit>(context).increment();
+          //   },
+          //   tooltip: 'Increment',
+          //   child: Icon(Icons.add),
+          // ),
+          // FloatingActionButton(
+          //   onPressed: () {
+          //     BlocProvider.of<CounterCubit>(context).decrement();
+          //   },
+          //   tooltip: 'Decrement',
+          //   child: Icon(Icons.remove),
+          // ),
+          // SizedBox(
+          //   height: 50,
+          // ),
+          // MaterialButton(
+          //   color: Colors.green,
+          //   child: Text('Go to second Screen'),
+          //   onPressed: () {
+          //     Navigator.pushNamed(context, '/second');
+          //   },
+          // ),
+          // MaterialButton(
+          //     color: Colors.red,
+          //     child: Text('Go to third Screen'),
+          //     onPressed: () {
+          //       Navigator.of(context).pushNamed('/third');
+          //     }),
         ],
       ),
     );
