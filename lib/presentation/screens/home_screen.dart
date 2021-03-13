@@ -1,5 +1,6 @@
 import 'package:bloc_pattern/logic/cubit/counter_cubit.dart';
 import 'package:bloc_pattern/presentation/screens/second_screen.dart';
+import 'package:bloc_pattern/presentation/screens/third_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,12 +44,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (state.wasIncremented == true) {
                   Scaffold.of(context).showSnackBar(SnackBar(
                     content: Text('Increment'),
-                    duration: Duration(milliseconds: 300),
+                    duration: Duration(milliseconds: 100),
                   ));
                 } else if (state.wasIncremented == false) {
                   Scaffold.of(context).showSnackBar(SnackBar(
                     content: Text('Decrement'),
-                    duration: Duration(milliseconds: 300),
+                    duration: Duration(milliseconds: 100),
                   ));
                 }
               },
@@ -83,19 +84,18 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 50,
           ),
           MaterialButton(
-            color: widget.color,
+            color: Colors.green,
             child: Text('Go to second Screen'),
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => BlocProvider.value(
-                        value: BlocProvider.of<CounterCubit>(context),
-                        child: SecondScreen(
-                          title: 'Second screen',
-                          color: Colors.green,
-                        ),
-                      )));
+              Navigator.pushNamed(context, '/second');
             },
           ),
+          MaterialButton(
+              color: Colors.red,
+              child: Text('Go to third Screen'),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/third');
+              }),
         ],
       ),
     );

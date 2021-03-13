@@ -2,16 +2,16 @@ import 'package:bloc_pattern/logic/cubit/counter_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SecondScreen extends StatefulWidget {
-  SecondScreen({Key key, this.title, this.color}) : super(key: key);
+class ThirdScreen extends StatefulWidget {
+  ThirdScreen({Key key, this.title, this.color}) : super(key: key);
 
   final String title;
   final Color color;
   @override
-  _SecondScreenState createState() => _SecondScreenState();
+  _ThirdScreenState createState() => _ThirdScreenState();
 }
 
-class _SecondScreenState extends State<SecondScreen> {
+class _ThirdScreenState extends State<ThirdScreen> {
   // CounterBloc bloc;
 
   @override
@@ -78,7 +78,6 @@ class _SecondScreenState extends State<SecondScreen> {
             tooltip: 'Decrement',
             child: Icon(Icons.remove),
           ),
-          
         ],
       ),
     );
