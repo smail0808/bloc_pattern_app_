@@ -42,12 +42,12 @@ class _HomeScreenState extends State<HomeScreen> {
             BlocConsumer<CounterCubit, CounterState>(
               listener: (context, state) {
                 if (state.wasIncremented == true) {
-                  Scaffold.of(context).showSnackBar(SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text('Increment'),
                     duration: Duration(milliseconds: 100),
                   ));
                 } else if (state.wasIncremented == false) {
-                  Scaffold.of(context).showSnackBar(SnackBar(
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text('Decrement'),
                     duration: Duration(milliseconds: 100),
                   ));
